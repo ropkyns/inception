@@ -9,7 +9,7 @@ RUN mkdir /data
 RUN mariadb-install-db --datadir=/data
 
 #start mariadb when system reboots
-RUN rc-update add mariadb default
+# RUN rc-update add mariadb default
 
 #start database
 RUN exec mariadb &
