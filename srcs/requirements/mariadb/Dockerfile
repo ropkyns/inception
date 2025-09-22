@@ -1,15 +1,11 @@
-FROM alpine:3.22
+FROM debian:bookworm
 
 #install mariadb database
-RUN apk add --no-cache mariadb mariadb-client
+RUN apt update -y
+RUN apt upgrade -y
+RUN apt-get install mariadb-server -y
 
-RUN mkdir /data
+COPY conf/50-server.cnf /etc/mysql/mariadb.cond.d/50-server.cnf
 
-#initialize new database
-RUN mariadb-install-db --datadir=/data
-
-#start mariadb when system reboots
-# RUN rc-update add mariadb default
-
-#start database
-RUN exec mariadb &
+COPY /tools/init-mariadb.sh /tmp/init-mariadb.sh
+ENTRYPOINT ["sh", "/tmp/init-mariadb.sh"]
