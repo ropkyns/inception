@@ -13,9 +13,9 @@ if wp user get admin --path='/var/www/wordpress' --allow-root > /dev/null 2>&1; 
 	wp user delete admin --path='/var/www/wordpress' --allow-root --yes
 fi
 
-if ! wp user get $WP_USER --path='/var/www/wordpress' --allow-root > /dev/null 2>&1; then
+if ! wp user get "$WP_USER" --path='/var/www/wordpress' --allow-root > /dev/null 2>&1; then
 	echo "Creating admin user '$WP_USER'"
-	wp user create $WP_USER $WP_EMAIL --role=administrator --user_pass=$WP_PASSWORD --path='/var/www/wordpress' --allow-root
+	wp user create "$WP_USER" "$WP_EMAIL" --role=administrator --user_pass="$WP_PASSWORD" --path='/var/www/wordpress' --allow-root
 else
 	echo "Admin user $WP_USER already exists."
 fi
