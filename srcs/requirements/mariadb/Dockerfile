@@ -6,8 +6,9 @@ RUN apt update -y && apt upgrade -y && apt-get install mariadb-server -y
 # add .conf file for mariadb
 COPY conf/50-server.cnf /etc/mysql/mariadb.cond.d/50-server.cnf
 
-# add and exec script mariadb installation 
+# add and exec script mariadb installation
 COPY /tools/init-mariadb.sh /tmp/init-mariadb.sh
+COPY /conf/init.sql /tmp/init.sql
 
 RUN chown -R mysql:mysql /etc/mysql && chmod 777 /tmp/init-mariadb.sh
 

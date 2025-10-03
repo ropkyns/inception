@@ -36,4 +36,4 @@ else
   echo "Database already exists."
 fi
 
-exec mariadbd --user=mysql --console
+exec mariadbd --user=mysql --console --bind-address=0.0.0.0

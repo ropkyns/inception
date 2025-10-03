@@ -1,8 +1,14 @@
-sleep 10
+echo "Waiting for Mariadb to be ready..."
+until mysql -h mariadb -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -e "SELECT 1" >/dev/null 2>&1; do
+	echo "Mariadb is unvailable - sleeping"
+	sleep 2
+done
+echo "MariaDB is up - executing command"
+
 if [ -f /var/www/wordpress/wp-config.php ]; then
 	echo "WordPress already installed"
 else
-	wp core download --path='/var/www/wordpress' --allow-root
+		
 	wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=mariadb:3306 --path='/var/www/wordpress' --skip-check --allow-root
 	wp core install --path='/var/www/wordpress' --url="https://$DOMAIN_NAME" --title="$WP_TITLE" --skip-email --allow-root
 	wp user create testo test@tes.to --role=author --path='/var/www/wordpress' --user_pass=testo --allow-root
