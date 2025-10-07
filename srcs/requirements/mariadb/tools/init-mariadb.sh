@@ -26,6 +26,8 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 
   mysql <<EOF
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 EOF
 
@@ -36,4 +38,5 @@ else
   echo "Database already exists."
 fi
 
-exec mariadbd --user=mysql --console --bind-address=0.0.0.0
+
+exec mariadbd --user=mysql --console

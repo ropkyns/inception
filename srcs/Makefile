@@ -11,3 +11,5 @@ fclean:
 	@sudo docker system prune -af
 	@sudo rm -rf /home/paulmart/data/mariadb/*
 	@sudo rm -rf /home/paulmart/data/wordpress/*
+
+re : fclean up

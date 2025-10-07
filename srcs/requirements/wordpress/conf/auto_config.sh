@@ -10,7 +10,15 @@ if [ -f /var/www/wordpress/wp-config.php ]; then
 else
 		
 	wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=mariadb:3306 --path='/var/www/wordpress' --skip-check --allow-root
-	wp core install --path='/var/www/wordpress' --url="https://$DOMAIN_NAME" --title="$WP_TITLE" --skip-email --allow-root
+	wp core install \
+		--path='/var/www/wordpress' \
+		--url="https://$DOMAIN_NAME" \
+		--title="$WP_TITLE" \
+		--admin_user="$WP_USER" \
+		--admin_password="$WP_PASSWORD" \
+		--admin_email="$WP_EMAIL" \
+		--skip-email \
+		--allow-root
 	wp user create testo test@tes.to --role=author --path='/var/www/wordpress' --user_pass=testo --allow-root
 fi
 
