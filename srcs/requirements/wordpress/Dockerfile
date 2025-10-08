@@ -3,7 +3,7 @@ FROM debian:bookworm
 RUN apt update -y && \
 	apt upgrade -y && \
 	apt-get -y install wget \
-	php8.2 \
+	php \
 	php-fpm \
 	php-mysql \
 	mariadb-client \
@@ -11,9 +11,11 @@ RUN apt update -y && \
 
 RUN wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /var/www && \
 	cd /var/www && tar -xzf wordpress-6.0-fr_FR.tar.gz && rm wordpress-6.0-fr_FR.tar.gz && \
-	chown -R root:root /var/www/wordpress
+	# chown -R root:root /var/www/html && \
+	mkdir -p /run/php && chown -R www-data:www-data /var/www/wordpress
+
 # add configuration file for php
-COPY /conf/www.conf /etc/php/8.2/fpm/pool.d
+COPY /conf/www.conf /etc/php/8.2/fpm/pool.d/.
 
 COPY /conf/auto_config.sh /tmp/auto_config.sh
 
