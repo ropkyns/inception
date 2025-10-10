@@ -1,4 +1,4 @@
-DIR="./docker-compose.yml"
+DIR="./srcs/docker-compose.yml"
 
 up:
 	@sudo docker compose -f $(DIR) up --build -d

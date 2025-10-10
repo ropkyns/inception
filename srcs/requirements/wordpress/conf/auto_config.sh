@@ -26,7 +26,7 @@ else
 		--admin_email="$WP_EMAIL" \
 		--skip-email \
 		--allow-root
-	# wp user create testo test@tes.to --role=author --path=/var/www/html --user_pass=testo --allow-root
+	wp user create testo test@tes.to --role=author --path=/var/www/html --user_pass=testo --allow-root
 fi
 
 if wp user get admin --path=/var/www/html --allow-root > /dev/null 2>&1; then
